@@ -1,0 +1,34 @@
+# Local MySQL for development (same schema as MySQL/TiDB in production).
+# Run: setup-mysql.bat  OR  docker compose up -d
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: oxlev-mysql
+    env_file: docker/mysql.env
+    ports:
+      - "3306:3306"
+    volumes:
+      - oxlev_mysql_data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "127.0.0.1",
+          "-uroot",
+          "-prootdevonly",
+        ]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    command:
+      - "mysqld"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+
+volumes:
+  oxlev_mysql_data:
