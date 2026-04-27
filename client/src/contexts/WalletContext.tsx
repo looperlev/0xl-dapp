@@ -8,11 +8,11 @@ import { SolflareWalletAdapter } from "@solana/wallet-adapter-solflare";
 import { CoinbaseWalletAdapter } from "@solana/wallet-adapter-coinbase";
 import { TrustWalletAdapter } from "@solana/wallet-adapter-trust";
 import { toast } from "sonner";
+import { getSolanaRpcUrl } from "@/lib/solanaRpc";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-const SOLANA_RPC =
-  import.meta.env.VITE_SOLANA_RPC_URL ?? "https://api.mainnet-beta.solana.com";
+const SOLANA_RPC = getSolanaRpcUrl();
 
 interface WalletContextProviderProps {
   children: React.ReactNode;

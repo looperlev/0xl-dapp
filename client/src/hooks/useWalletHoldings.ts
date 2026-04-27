@@ -2,9 +2,9 @@ import { useEffect, useState, useMemo } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { trpc } from "@/lib/trpc";
 import { useStore } from "@/lib/store";
+import { getSolanaRpcUrl } from "@/lib/solanaRpc";
 
-const RPC_URL =
-  import.meta.env.VITE_SOLANA_RPC_URL ?? "https://api.mainnet-beta.solana.com";
+const RPC_URL = getSolanaRpcUrl();
 
 export interface Holding {
   symbol: string;
@@ -88,7 +88,14 @@ export function useWalletHoldings() {
           }),
         });
 
-        const json = await res.json();
+        if (!res.ok) {
+          throw new Error(`RPC request failed: ${res.status} ${res.statusText}`);
+        }
+        const text = await res.text();
+        if (!text.trim()) {
+          throw new Error("RPC returned an empty response body");
+        }
+        const json = JSON.parse(text);
         if (cancelled) return;
 
         const dasResult: DASResult = json.result ?? {};

@@ -13,7 +13,7 @@
     "test": "vitest run",
     "db:push": "drizzle-kit generate && drizzle-kit migrate",
     "db:migrate": "drizzle-kit migrate",
-    "deploy:cf": "pnpm run build && npx wrangler deploy --config wrangler.jsonc --non-interactive",
+    "deploy:cf": "pnpm run build && npx wrangler deploy --config wrangler.jsonc",
     "preview:cf": "pnpm run build && npx wrangler dev --config wrangler.jsonc"
   },
   "dependencies": {
