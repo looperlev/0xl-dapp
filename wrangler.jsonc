@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "0xl-dapp",
+  "name": "0xl-dappaa",
   "compatibility_date": "2026-04-26",
   "observability": {
     "enabled": true
